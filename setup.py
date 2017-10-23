@@ -4,10 +4,10 @@ assignment."""
 from setuptools import setup
 
 setup(
-    name='Data-Structures',
-    description='Contains setup for Data-Structures modules.',
-    author='Chelsea and Carson',
-    author_email='carson.newton@outlook.com, chelseadole@gmail.com',
+    name='Socket Echo Server',
+    description='Contains setup for socket echo server assignment.',
+    author='Nathan and Carson',
+    author_email='carson.newton@outlook.com',
     package_dir={'': 'src'},
     py_modules=[],
     install_requires=[],
