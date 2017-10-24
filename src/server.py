@@ -10,8 +10,7 @@ def start_server():
 
     server.listen(20)
 
-
-    buffer_length = 8
+    buffer_length = 100
 
     message_complete = False
 
