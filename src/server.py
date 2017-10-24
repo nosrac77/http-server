@@ -6,11 +6,10 @@ import socket
 def start_server():
     """Start the server."""
     server = socket.socket(2, 1, 6)
-    server.bind(("127.0.0.1", 5678))
+    server.bind(("127.0.0.1", 5679))
 
     server.listen(20)
 
-    conn, addr = server.accept()
 
     buffer_length = 8
 
@@ -19,6 +18,7 @@ def start_server():
     entire_message = ""
 
     while not message_complete:
+        conn, addr = server.accept()
         part = conn.recv(buffer_length)
         entire_message += part.decode('utf8')
         if len(part) < buffer_length:
@@ -26,9 +26,7 @@ def start_server():
 
     print(entire_message)
 
-    response_ok()
-
-    conn.close()
+    conn.sendall(response_ok())
 
     try:
         i = input('Press ctrl-d to exit.')

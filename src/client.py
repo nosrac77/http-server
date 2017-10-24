@@ -5,7 +5,7 @@ def start_client(message):
     """Start the client."""
     import socket
     client_socket = socket.socket(2, 1, 6)
-    client_socket.connect(('127.0.0.1', 5678))
+    client_socket.connect(('127.0.0.1', 5679))
     client_socket.sendall(message.encode('utf8'))
 
     buffer_length = 8
@@ -20,10 +20,11 @@ def start_client(message):
         entire_message += part.decode('utf8')
         if len(part) < buffer_length:
             break
-
+    client_socket.shutdown(socket.SHUT_WR)
     client_socket.close()
 
 
 if __name__ == "__main__":
     import sys
     start_client(sys.argv[1])
+    sys.exit()
