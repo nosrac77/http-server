@@ -1,25 +1,25 @@
 """Functions that test server and client socket functions."""
 
 
-def test_server():
-    """Function that tests the server function."""
-    from server import start_server
-    from client import start_client
-    start_server()
-    start_client('Hello')
-    assert start_server() == 'Hello'
+# def test_server():
+#     """Function that tests the server function."""
+#     from server import start_server
+#     from client import start_client
+#     start_server()
+#     start_client('Hello')
+#     assert start_server() == 'Hello'
 
 
 def test_response_ok_returns_response():
     """Function that tests reponse_ok function returns response."""
     from server import response_ok
-    assert response_ok().contains('200')
+    assert b"200" in response_ok()
 
 
 def test_output_type_of_response_ok():
     """Test that the output is the correct type."""
     from server import response_ok
-    assert response_ok() == str
+    assert isinstance(response_ok(), bytes)
 
 
 def test_output_of_response_ok_exists():
@@ -39,13 +39,13 @@ def test_if_response_ok_needs_no_inputs():
 def test_response_error_returns_response():
     """Function that tests reponse_error function returns response."""
     from server import response_error
-    assert response_error().contains('500')
+    assert b"500" in response_error()
 
 
 def test_output_type_of_response_error():
     """Test that the output is the correct type."""
     from server import response_error
-    assert response_error() == str
+    assert isinstance(response_error(), bytes)
 
 
 def test_output_of_response_error_exists():
