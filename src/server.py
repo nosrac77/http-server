@@ -45,9 +45,16 @@ def response_ok():
     import datetime
     response = "HTTP/1.1 200 OK\nDate: {}\n<CRLF>\nYour message was received.".format(datetime.datetime.now())
 
-    print(response)
+    return response.encode()
+
+
+def response_error():
+    """Send back an HTTP 500 response."""
+    import datetime
+    response = "HTTP/1.1 500 Internal Server Error\nDate: {}\n<CRLF>\nYour message was received.".format(datetime.datetime.now())
 
     return response.encode()
+
 
 if __name__ == "__main__":
     start_server()
