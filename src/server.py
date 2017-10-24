@@ -10,8 +10,6 @@ def start_server():
 
     server.listen(20)
 
-    conn, addr = server.accept()
-
     buffer_length = 8
 
     message_complete = False
@@ -19,14 +17,15 @@ def start_server():
     entire_message = ""
 
     while not message_complete:
+        conn, addr = server.accept()
         part = conn.recv(buffer_length)
-        print(part.decode('utf8'))
-        conn.sendall(entire_message.decode('UTF8'))
         entire_message += part.decode('utf8')
         if len(part) < buffer_length:
             break
 
-    conn.close()
+    print(entire_message)
+
+    conn.sendall(entire_message)
 
     try:
         i = input('Press ctrl-d to exit.')
