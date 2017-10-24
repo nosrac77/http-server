@@ -40,5 +40,14 @@ def start_server():
         server.close()
 
 
+def response_ok():
+    """Send back an HTTP 200 response."""
+    import datetime
+    response = "HTTP/1.1 200 OK\nDate: {}\n<CRLF>\nYour message was received.".format(datetime.datetime.now())
+
+    print(response)
+
+    return response.encode()
+
 if __name__ == "__main__":
     start_server()
