@@ -12,3 +12,17 @@ def start_server():
     server.listen(1)
 
     conn, addr = server.accept()
+
+    buffer_length = 8
+
+    message_complete = False
+
+    while not message_complete:
+        part = conn.recv(buffer_length)
+        print(part.decode('utf8'))
+        if len(part) < buffer_length:
+            break
+
+
+if __name__ == "__main__":
+    start_server()
