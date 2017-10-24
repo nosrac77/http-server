@@ -8,6 +8,22 @@ def start_client(message):
     client_socket.connect(('127.0.0.1', 5678))
     client_socket.sendall(message.encode('utf8'))
 
+    buffer_length = 8
+
+    message_complete = False
+
+    entire_message = ""
+
+    while not message_complete:
+        part = client_socket.recv(buffer_length)
+        print(part.decode('utf8'))
+        entire_message += part.decode('utf8')
+        if len(part) < buffer_length:
+            break
+
+    client_socket.close()
+
+
 if __name__ == "__main__":
     import sys
     start_client(sys.argv[1])
