@@ -48,5 +48,20 @@ def response_error():
     return response.encode()
 
 
+def parse_request(request):
+    """Function that returns URI from client if conditions are met."""
+    try:
+        request.decode('utf8')
+        if 'GET' != request[:3]:
+            raise(TypeError)
+        if request.split()[2].split('<CRLF>')[0] != 'HTTP/1.1':
+            raise(TypeError)
+        if request.split('<CRLF>')[1][:6] != 'Host: ':
+            raise(TypeError)
+        return request.split()[1]
+    except(TypeError):
+        print('Only GET requests of protocol version 1.1 are allowed.')
+
+
 if __name__ == "__main__":
     start_server()
