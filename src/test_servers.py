@@ -1,15 +1,6 @@
 """Functions that test server and client socket functions."""
 
 
-# def test_server():
-#     """Function that tests the server function."""
-#     from server import start_server
-#     from client import start_client
-#     start_server()
-#     start_client('Hello')
-#     assert start_server() == 'Hello'
-
-
 def test_response_ok_returns_response():
     """Function that tests reponse_ok function returns response."""
     from server import response_ok
@@ -65,7 +56,7 @@ def test_if_response_error_needs_no_inputs():
 def test_parse_request_correct_input():
     """Ensure that parse_request returns the URI given a correct input."""
     from server import parse_request
-    good_input = b"GET /path/to/index.html HTTP/1.1\r\n>Host: www.mysite1.com:80\r\n>\r\n>"
+    good_input = b"GET /path/to/index.html HTTP/1.1\r\nHost: www.mysite1.com:80\r\n\r\n"
     assert parse_request(good_input) == '/path/to/index.html'
 
 
