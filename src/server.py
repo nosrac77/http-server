@@ -52,15 +52,11 @@ def parse_request(request):
     """Function that returns URI from client if conditions are met."""
     request = request.decode('utf8')
     if 'GET' != request[:3]:
-        print('I')
         raise(TypeError)
     if request.split()[2].split('<CRLF>')[0] != 'HTTP/1.1':
-        print('you')
         raise(TypeError)
     if request.split('<CRLF>')[1][:6] != 'Host: ':
-        print('me')
         raise(TypeError)
-    print(request.split()[1])
     return request.split()[1]
 
 
