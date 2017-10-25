@@ -65,7 +65,7 @@ def test_if_response_error_needs_no_inputs():
 def test_parse_request_correct_input():
     """Ensure that parse_request returns the URI given a correct input."""
     from server import parse_request
-    good_input = "GET /path/to/index.html HTTP/1.1<CRLF>Host: www.mysite1.com:80<CRLF><CRLF>"
+    good_input = b"GET /path/to/index.html HTTP/1.1<CRLF>Host: www.mysite1.com:80<CRLF><CRLF>"
     assert parse_request(good_input) == '/path/to/index.html'
 
 
@@ -74,4 +74,4 @@ def test_parse_request_incorrect_input():
     from server import parse_request
     import pytest
     with pytest.raises(TypeError):
-        parse_request('bingbong')
+        parse_request(b'bingbong')
