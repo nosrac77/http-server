@@ -37,14 +37,14 @@ def start_server():
 def response_ok():
     """Send back an HTTP 200 response."""
     import datetime
-    response = "HTTP/1.1 200 OK\nDate: {}\n<CRLF>\nYour message was received.".format(datetime.datetime.now())
+    response = "HTTP/1.1 200 OK\nDate: {}\n\r\n>\nYour message was received.".format(datetime.datetime.now())
     return response.encode()
 
 
 def response_error():
     """Send back an HTTP 500 response."""
     import datetime
-    response = "HTTP/1.1 500 Internal Server Error\nDate: {}\n<CRLF>\nYour message was received.".format(datetime.datetime.now())
+    response = "HTTP/1.1 500 Internal Server Error\nDate: {}\n\r\n>\nYour message was received.".format(datetime.datetime.now())
     return response.encode()
 
 
@@ -53,9 +53,9 @@ def parse_request(request):
     request = request.decode('utf8')
     if 'GET' != request[:3]:
         raise(TypeError)
-    if request.split()[2].split('<CRLF>')[0] != 'HTTP/1.1':
+    if request.split()[2].split('\r\n>')[0] != 'HTTP/1.1':
         raise(TypeError)
-    if request.split('<CRLF>')[1][:6] != 'Host: ':
+    if request.split('\r\n>')[1][:6] != 'Host: ':
         raise(TypeError)
     return request.split()[1]
 
