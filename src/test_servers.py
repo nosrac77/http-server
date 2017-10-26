@@ -65,7 +65,7 @@ def test_if_response_error_needs_inputs():
 def test_output_type_of_resolve_uri():
     """Test that the output is the correct type."""
     from server import resolve_uri
-    assert resolve_uri('/') == str
+    assert type(resolve_uri('/')) == str
 
 
 def test_output_of_resolve_uri_exists():
