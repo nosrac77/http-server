@@ -3,10 +3,11 @@
 import socket
 
 
-def response_ok():
+def response_ok(request):
     """Send back an HTTP 200 response."""
     import datetime
-    response = "HTTP/1.1 200 OK\nDate: {}\n\r\n\nYour message was received.".format(datetime.datetime.now())
+    file_extension = '.' + parse_request(request).split('.')[-1]
+    response = "HTTP/1.1 200 OK\nDate: {}\n\r\n{}\nYour message was received.".format(datetime.datetime.now(), file_extension)
     return response.encode()
 
 
@@ -44,10 +45,16 @@ def response_error(error):
 def parse_request(request):
     """Function that returns URI from client if conditions are met."""
     if 'GET' != request[:3]:
+        print(request[:3])
+        print(1)
         raise(TypeError)
     if request.split()[2] != 'HTTP/1.1':
+        print(request.split()[2])
+        print(2)
         raise(TypeError)
     if request.split()[3] != 'Host:':
+        print(request.split()[3])
+        print(3)
         raise(TypeError)
     return request.split()[1]
 
@@ -59,7 +66,7 @@ def start_server():
     server = socket.socket(2, 1, 6)
     server.bind(("127.0.0.1", 5678))
     server.listen(20)
-    buffer_length = 8
+    buffer_length = 40
 
     try:
         while True:
@@ -76,7 +83,7 @@ def start_server():
                     timer = False
 
             try:
-                conn.sendall(response_ok() + resolve_uri(parse_request(entire_message)))
+                conn.sendall(response_ok(parse_request(entire_message)) + resolve_uri(parse_request(entire_message)))
             except TypeError:
                 conn.sendall(response_error(TypeError))
 
@@ -85,5 +92,5 @@ def start_server():
         sys.exit(1)
 
 
-# if __name__ == "__main__":
-#     start_server()
+if __name__ == "__main__":
+    start_server()
