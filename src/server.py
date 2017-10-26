@@ -24,9 +24,9 @@ def parse_request(request):
     """Function that returns URI from client if conditions are met."""
     if 'GET' != request[:3]:
         raise(TypeError)
-    if request.split()[2][:8] != 'HTTP/1.1':
+    if request.split()[2] != 'HTTP/1.1':
         raise(TypeError)
-    if request.split()[2][12:18] != 'Host:':
+    if request.split()[3] != 'Host:':
         raise(TypeError)
     return request.split()[1]
 
