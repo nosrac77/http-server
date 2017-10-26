@@ -19,8 +19,12 @@ def resolve_uri(uri):
         htmlcode = HTML.list(uri_directory)
         return htmlcode
     else:
-        file_extension = '.' + uri.split('.')[-1]
-        file_name = uri.split('/')[-1]
+        # file_extension = '.' + uri.split('.')[-1]
+        # file_name = uri.split('/')[-1]
+        import io
+        with io.open(uri, encoding='utf-8') as f:
+            file_contents = f.read()
+            return file_contents
 
 
 def response_error(error):
