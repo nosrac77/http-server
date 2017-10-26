@@ -49,7 +49,6 @@ def parse_request(request):
         raise(TypeError)
     if request.split()[3] != 'Host:':
         raise(TypeError)
-    resolve_uri(request.split()[1])
     return request.split()[1]
 
 
@@ -77,8 +76,7 @@ def start_server():
                     timer = False
 
             try:
-                parse_request(entire_message)
-                conn.sendall(response_ok())
+                conn.sendall(response_ok() + resolve_uri(parse_request(entire_message)))
             except TypeError:
                 conn.sendall(response_error(TypeError))
 
