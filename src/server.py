@@ -12,19 +12,23 @@ def response_ok():
 
 def resolve_uri(uri):
     """Resolve a URI."""
-    if uri[-1] == '/':
-        import HTML
-        from os import listdir
-        uri_directory = listdir(uri)
-        htmlcode = HTML.list(uri_directory)
-        return htmlcode
-    else:
-        # file_extension = '.' + uri.split('.')[-1]
-        # file_name = uri.split('/')[-1]
-        import io
-        with io.open(uri, encoding='utf-8') as f:
-            file_contents = f.read()
-            return '<body>' + file_contents + '</body>'
+    try:
+        if uri[-1] == '/':
+            import HTML
+            from os import listdir
+            file_extension = '.' + uri.split('.')[-1]
+            uri_directory = listdir(uri)
+            htmlcode = HTML.list(uri_directory)
+            return (htmlcode, file_extension)
+        else:
+            file_extension = '.' + uri.split('.')[-1]
+            # file_name = uri.split('/')[-1]
+            import io
+            with io.open(uri, encoding='utf-8') as f:
+                file_contents = f.read()
+                return ('<body>' + file_contents + '</body>', file_extension)
+    except IOError:
+        raise IOError('The file/directory you requested could not be found.')
 
 
 def response_error(error):
