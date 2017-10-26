@@ -24,7 +24,7 @@ def resolve_uri(uri):
         import io
         with io.open(uri, encoding='utf-8') as f:
             file_contents = f.read()
-            return file_contents
+            return '<body>' + file_contents + '</body>'
 
 
 def response_error(error):
