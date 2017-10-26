@@ -14,9 +14,10 @@ def resolve_uri(uri):
     """Resolve a URI."""
     if uri[-1] == '/':
         import HTML
-        uri_directory = ['john', 'paul', 'jack']
+        from os import listdir
+        uri_directory = listdir(uri)
         htmlcode = HTML.list(uri_directory)
-        print(htmlcode)
+        return htmlcode
     else:
         file_extension = '.' + uri.split('.')[-1]
         file_name = uri.split('/')[-1]
@@ -78,5 +79,5 @@ def start_server():
         sys.exit(1)
 
 
-if __name__ == "__main__":
-    start_server()
+# if __name__ == "__main__":
+#     start_server()
