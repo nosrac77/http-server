@@ -7,7 +7,7 @@ def start_client(message):
     client_socket = socket.socket(2, 1, 6)
     client_socket.connect(('127.0.0.1', 5678))
     client_socket.sendall(message.encode('utf8'))
-    buffer_length = 40
+    buffer_length = 8
     entire_message = b''
     timer = True
 

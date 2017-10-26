@@ -44,16 +44,18 @@ def response_error(error):
 
 def parse_request(request):
     """Function that returns URI from client if conditions are met."""
+    print(request)
     if 'GET' != request[:3]:
+        print(type(request))
         print(request[:3])
         print(1)
         raise(TypeError)
-    if request.split()[2] != 'HTTP/1.1':
-        print(request.split()[2])
+    if request.split()[2][:8] != 'HTTP/1.1':
+        print(request.split()[2][:8])
         print(2)
         raise(TypeError)
-    if request.split()[3] != 'Host:':
-        print(request.split()[3])
+    if request.split()[2][12:18] != 'Host:':
+        print(request.split()[2][12:18])
         print(3)
         raise(TypeError)
     return request.split()[1]
@@ -66,7 +68,7 @@ def start_server():
     server = socket.socket(2, 1, 6)
     server.bind(("127.0.0.1", 5678))
     server.listen(20)
-    buffer_length = 40
+    buffer_length = 8
 
     try:
         while True:
@@ -83,7 +85,7 @@ def start_server():
                     timer = False
 
             try:
-                conn.sendall(response_ok(parse_request(entire_message)) + resolve_uri(parse_request(entire_message)))
+                conn.sendall(response_ok(entire_message) + resolve_uri(parse_request(entire_message)))
             except TypeError:
                 conn.sendall(response_error(TypeError))
 
