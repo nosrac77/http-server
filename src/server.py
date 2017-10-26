@@ -10,6 +10,18 @@ def response_ok():
     return response.encode()
 
 
+def resolve_uri(uri):
+    """Resolve a URI."""
+    if uri[-1] == '/':
+        import HTML
+        uri_directory = ['john', 'paul', 'jack']
+        htmlcode = HTML.list(uri_directory)
+        print(htmlcode)
+    else:
+        file_extension = '.' + uri.split('.')[-1]
+        file_name = uri.split('/')[-1]
+
+
 def response_error(error):
     """Send back an HTTP 500 response."""
     import datetime
@@ -28,6 +40,7 @@ def parse_request(request):
         raise(TypeError)
     if request.split()[3] != 'Host:':
         raise(TypeError)
+    resolve_uri(request.split()[1])
     return request.split()[1]
 
 
