@@ -13,16 +13,16 @@ def response_ok():
 def response_error(error):
     """Send back an HTTP 500 response."""
     import datetime
+    print(error)
     if error is TypeError:
         response = "HTTP/1.1 400 Bad Request\nDate: {}\n\r\n\nYour message was received.".format(datetime.datetime.now())
     else:
         response = "HTTP/1.1 500 Internal Server Error\nDate: {}\n\r\n\nYour message was received.".format(datetime.datetime.now())
-        return response.encode()
+    return response.encode()
 
 
 def parse_request(request):
     """Function that returns URI from client if conditions are met."""
-    request = request.decode('utf8')
     if 'GET' != request[:3]:
         raise(TypeError)
     if request.split()[2].split('\r\n')[0] != 'HTTP/1.1':
@@ -55,17 +55,15 @@ def start_server():
                 if len(part) < buffer_length:
                     timer = False
 
-            conn.close()
             try:
-                conn.sendall(response_ok().encode())
+                parse_request(entire_message)
+                conn.sendall(response_ok())
             except TypeError:
                 conn.sendall(response_error(TypeError))
 
     except KeyboardInterrupt:
         server.close()
         sys.exit(1)
-
-
 
 
 if __name__ == "__main__":
