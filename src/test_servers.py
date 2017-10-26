@@ -60,3 +60,23 @@ def test_if_response_error_needs_inputs():
     import pytest
     with pytest.raises(TypeError):
         response_error()
+
+
+def test_output_type_of_resolve_uri():
+    """Test that the output is the correct type."""
+    from server import resolve_uri
+    assert resolve_uri('/') == str
+
+
+def test_output_of_resolve_uri_exists():
+    """Test that the output exists."""
+    from server import resolve_uri
+    assert resolve_uri('/') is not None
+
+
+def test_if_resolve_uri_needs_inputs():
+    """Test that the inputs are required."""
+    from server import resolve_uri
+    import pytest
+    with pytest.raises(TypeError):
+        resolve_uri()
