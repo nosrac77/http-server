@@ -56,8 +56,8 @@ def parse_request(request):
         print(request.split()[2][:8])
         print(2)
         raise(TypeError)
-    if request.split()[2][12:18] != 'Host:':
-        print(request.split()[2][12:18])
+    if request.split()[3] != 'Host:':
+        print(request.split()[3])
         print(3)
         raise(TypeError)
     return request.split()[1]
