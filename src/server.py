@@ -1,13 +1,11 @@
 """Function that creates a server to interact with client.py."""
 
-import socket
-
 
 def response_ok(request):
     """Send back an HTTP 200 response."""
     import datetime
     file_extension = '.' + parse_request(request).split('.')[-1]
-    response = "HTTP/1.1 200 OK\nDate: {}\n\r\n{}\nYour message was received.".format(datetime.datetime.now(), file_extension)
+    response = "HTTP/1.1 200 OK\nDate: {}\n\r\n{}\nYour request was received.".format(datetime.datetime.now(), file_extension)
     print(response.encode())
     return response.encode()
 
@@ -27,7 +25,6 @@ def resolve_uri(uri):
         else:
             print('in else')
             file_extension = '.' + uri.split('.')[-1]
-            # file_name = uri.split('/')[-1]
             import io
             with io.open(uri, encoding='utf-8') as f:
                 file_contents = f.read()
@@ -63,23 +60,20 @@ def parse_request(request):
     return request.split()[1]
 
 
-def start_server():
+def start_server(socket, address):
     """Start the server."""
     import sys
 
-    server = socket.socket(2, 1, 6)
-    server.bind(("127.0.0.1", 5678))
-    server.listen(20)
+    server = socket
     buffer_length = 8
 
     try:
         while True:
-            conn, addr = server.accept()
             entire_message = ''
             timer = True
 
             while timer:
-                part = conn.recv(buffer_length)
+                part = server.recv(buffer_length)
                 print(part.decode('utf8'))
                 entire_message += part.decode('utf8')
 
@@ -90,9 +84,9 @@ def start_server():
                 # import pdb; pdb.set_trace()
                 print(response_ok(entire_message))
                 print(resolve_uri(parse_request(entire_message)))
-                conn.sendall((response_ok(entire_message) + str(resolve_uri(parse_request(entire_message))).encode()))
+                server.sendall((response_ok(entire_message) + str(resolve_uri(parse_request(entire_message))).encode()))
             except TypeError:
-                conn.sendall(response_error(TypeError))
+                server.sendall(response_error(TypeError))
 
     except KeyboardInterrupt:
         server.close()
