@@ -27,7 +27,6 @@ def resolve_uri(uri):
         else:
             print('in else')
             file_extension = '.' + uri.split('.')[-1]
-            # file_name = uri.split('/')[-1]
             import io
             with io.open(uri, encoding='utf-8') as f:
                 file_contents = f.read()
