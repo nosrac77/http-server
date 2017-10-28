@@ -8,8 +8,8 @@ def start_client(message):
 
     message = codecs.escape_decode(message)[0]
     client_socket = socket.socket(2, 1, 6)
-    client_socket.connect(('127.0.0.1', 5678))
-    client_socket.sendall(message.encode('utf8'))
+    client_socket.connect(('127.0.0.1', 5679))
+    client_socket.sendall(message)
     buffer_length = 8
     entire_message = ''
     timer = True
