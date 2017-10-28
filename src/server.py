@@ -1,3 +1,8 @@
+"""Function that creates a server to interact with client.py."""
+
+import socket
+
+
 def start_server():
     """Start the server."""
     import sys
