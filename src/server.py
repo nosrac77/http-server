@@ -27,6 +27,7 @@ def start_server():
     server = socket.socket(2, 1, 6)
     server.bind(("127.0.0.1", 5679))
     server.listen(20)
+
     buffer_length = 8
 
     try:

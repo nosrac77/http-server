@@ -8,7 +8,7 @@ def start_client(message):
     client_socket.connect(('127.0.0.1', 5679))
     client_socket.sendall(message.encode('utf8'))
 
-    buffer_length = 8
+    buffer_length = 100
 
     message_complete = False
 
