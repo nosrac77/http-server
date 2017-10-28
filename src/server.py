@@ -17,7 +17,6 @@ def resolve_uri(uri):
     print(uri)
     try:
         if uri[-1] == '/':
-            print(uri[-1])
             import HTML
             from os import listdir
             file_extension = '.' + uri.split('.')[-1]
@@ -25,7 +24,6 @@ def resolve_uri(uri):
             htmlcode = HTML.list(uri_directory)
             return (htmlcode, file_extension)
         else:
-            print('in else')
             file_extension = '.' + uri.split('.')[-1]
             import io
             with io.open(uri, encoding='utf-8') as f:
@@ -49,15 +47,10 @@ def response_error(error):
 def parse_request(request):
     """Function that returns URI from client if conditions are met."""
     if 'GET' != request[:3]:
-        print(1)
         raise(TypeError)
     if request.split()[2][:8] != 'HTTP/1.1':
-        print(request.split()[2][:8])
-        print(2)
         raise(TypeError)
     if request.split()[3] != 'Host:':
-        print(request.split()[3])
-        print(3)
         raise(TypeError)
     return request.split()[1]
 
@@ -86,9 +79,6 @@ def start_server():
                     timer = False
 
             try:
-                # import pdb; pdb.set_trace()
-                print(response_ok(entire_message))
-                print(resolve_uri(parse_request(entire_message)))
                 conn.sendall((response_ok(entire_message) + str(resolve_uri(parse_request(entire_message))).encode()))
             except TypeError:
                 conn.sendall(response_error(TypeError))
