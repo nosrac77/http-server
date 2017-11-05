@@ -30,19 +30,19 @@ def test_if_response_ok_needs_no_inputs():
 def test_response_error_returns_response():
     """Function that tests reponse_error function returns response."""
     from server import response_error
-    assert b"500" in response_error()
+    assert b"500" in response_error('hello')
 
 
 def test_output_type_of_response_error():
     """Test that the output is the correct type."""
     from server import response_error
-    assert isinstance(response_error(), bytes)
+    assert isinstance(response_error('shalom'), bytes)
 
 
 def test_output_of_response_error_exists():
     """Test that the output exists."""
     from server import response_error
-    assert response_error() is not None
+    assert response_error(TypeError) is not None
 
 
 def test_if_response_error_needs_no_inputs():
@@ -50,4 +50,4 @@ def test_if_response_error_needs_no_inputs():
     from server import response_error
     import pytest
     with pytest.raises(TypeError):
-        response_error(5)
+        response_error(5 + 'nope')
